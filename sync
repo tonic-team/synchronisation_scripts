@@ -1,0 +1,113 @@
+#!/usr/bin/env bash
+#
+# Upload changes from inside repository using GIN CLI
+# Works with submodules.
+# Assumes gin init was performed or the repository was downloaded via gin get
+
+usage() {
+    echo "$0 <sync-option>"
+    echo
+    echo "<sync-option>     The sync option defines what to do with the content of large files."
+    echo "                  It should be one of the following values:"
+    echo "                     download - Download all large file content from the server"
+    echo "                     keep     - Keep all large file content but do not download missing large files"
+    echo "                     remove   - Do not download large files and remove existing local large file content"
+    exit 1
+}
+
+# Set the variable for synchronisation option, see above 
+syncopt="remove"
+
+# Set commit message
+echo "Optionally enter a commit message, and hit return: "  
+read commitmessage 
+
+if [[ "$commitmessage" == "" ]]; then
+        echo "using date as commit message"
+	commitmessage="commit on $(date +%Y-%m-%d)"    
+fi
+
+
+
+# Checking synchronisation option and giving feedback
+checkargs() {
+    case "$1" in
+        download)
+            echo "Downloading and keep all large file content"
+            ;;
+        keep)
+            echo "Keeping existing local large file content, do not downlad extra files"
+            ;;
+        remove)
+            echo "Removing all local large file content"
+            ;;
+        *)
+            usage
+            ;;
+    esac
+}
+
+checkargs "${syncopt}"
+
+checkerror() {
+    err=$1
+    msg=$2
+    if [[ ${err} != 0 ]]; then
+        echo "${msg}" >> ./.log/gin.log
+	echo "${err}" >> ./.log/gin.log
+        echo "${msg}"
+        echo "Press [Enter] to close this window"
+        read -r
+        exit 1
+    fi
+}
+
+# Set folder where script will be executed 
+loc=$(dirname $0)
+projectdir=$(git -C ${loc} rev-parse --show-toplevel)
+
+pushd ${loc} > /dev/null
+# write log
+mkdir -p ./.log
+echo "$(date +'%Y-%m-%dT%H:%M:%S'): Sync script executed" >> ./.log/gin.log
+
+echo "intialise submodules"
+git submodule foreach gin init
+
+echo "Synchronising submodules"
+git submodule foreach gin commit . -m "$commitmessage"
+checkerror $? "Error occurred during 'gin commit'"
+git submodule foreach gin sync
+checkerror $? "Error occurred during 'gin sync'"
+
+git submodule foreach gin upload
+checkerror $? "Error occurred during 'gin upload'"
+
+## remove uploaded (annexed) content
+if [[ "$syncopt" == "remove" ]]; then
+        git submodule foreach gin remove-content 
+        checkerror $? "Error occurred during 'gin remove-content'"
+    fi
+# get annexed content 
+if [[ "${syncopt}" == "download" ]]; then
+        git submodule foreach gin get-content .
+        checkerror $? "Error occurred during 'gin get-content .'"
+    fi    
+
+
+echo "Synchronising main repository"
+
+gin commit . -m "$commitmessage"
+gin sync
+gin upload
+
+# remove uploaded (annexed) content
+if [[ "$syncopt" == "remove" ]]; then
+        gin remove-content 
+        checkerror $? "Error occurred during 'gin remove-content' in main repo"
+    fi
+# get annexed content 
+if [[ "${syncopt}" == "download" ]]; then
+        gin get-content .
+        checkerror $? "Error occurred during 'gin get-content . in main repo'"
+    fi   
