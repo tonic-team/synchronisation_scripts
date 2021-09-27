@@ -29,6 +29,8 @@ We are still looking for a way to use the bash script in windows. Another approa
 
 GIN scripts suppose that the user is using the main g-node GIN server. Scripts in this folder will set up connection to a different instance.
 
+Note: when using several server, you can use `gin servers` to see a list and check that nothing went rogue. If you ever get the gin server changed, you can get if back with `gin add-server --web https://gin.g-node.org:443 --git git@gin.g-node.org:22 gin`
+
 
 # Contritubion
 
