@@ -12,10 +12,19 @@ Tests made on a machine running Windows 8.1, 64 bits. Slow internet connection.
 - https://www.cygwin.com/
 - download setup.exe 
 - no option to choose from until download (parsing)
-- choose to install base packages (default = not installed)
+- choose to install base packages (default = not installed) + 
+    - git
+    - git-gui
+    - gitk
 
-# trying to run sync.bat
 
-- git clone https://github.com/tonic-team/synchronisation_scripts.git
+# run sync.bat via double clikc
+
+## tests
+
+- gin login
+- gin get gin4RRI/scripts-2
+- NB that is a miror, as git clone here did not work.
 - double click sync.bat
+- trying `bash` versus `cygwin\bin\bash`
 
