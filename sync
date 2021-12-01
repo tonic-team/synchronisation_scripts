@@ -71,6 +71,14 @@ pushd ${loc} > /dev/null
 mkdir -p ./.log
 echo "$(date +'%Y-%m-%dT%H:%M:%S'): Sync script executed" >> ./.log/gin.log
 
+# create empty .gitmodules if it does not exist
+FILE=.gitmodules
+if [ -f "$FILE" ]; then
+    echo "$FILE already exists."
+else 
+    touch "$FILE"
+fi
+
 echo "intialise submodules"
 git submodule foreach gin init
 
