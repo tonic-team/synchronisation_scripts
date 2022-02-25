@@ -2,6 +2,6 @@
 
 set curdir=%~dp0
 
-C:\cygwin64\bin\bash -l %curdir%sync.sh
+C:\cygwin64\bin\bash -l %curdir%GIN-sync.sh
 
 pause

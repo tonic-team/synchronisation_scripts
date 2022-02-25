@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+#
+# Initialise or Upload changes from inside repository
+# using GIN CLI
+# Works with submodules and repo made by tonic v1 (not copying submodules content).
+# needs git config to be set 
+# needs SSH access to GIN
+# future dvt using datalad will allow use of non-GIN repositories
+
+# logic: template has a specific file to label it needs initialisation.
+# if this file is present, code 1 is done: template_initialisation
+# if it is absent but submodules are empty, code 2 is done: submodule_initialisation
+# if none of the above code 3 is done: synchronisation
+
+# Set folder where script will be executed 
+loc=$(dirname $0)
+projectdir=$(git -C ${loc} rev-parse --show-toplevel)
+
+pushd ${loc} > /dev/null
+
+echo "projectdir is"
+echo ${projectdir}
+echo "end loc "
+projectdir=$(git -C ${loc} rev-parse --show-toplevel)
+
+pushd ${loc} > /dev/null
+
+echo ${projectdir}

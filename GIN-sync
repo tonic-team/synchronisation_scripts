@@ -2,7 +2,8 @@
 #
 # Upload changes from inside repository using GIN CLI
 # Works with submodules.
-# Assumes gin init was performed or the repository was downloaded via gin get
+# needs git config to be set and user should be logged in
+# needs submodules and main repo to be initialised (gin init)
 
 usage() {
     echo "$0 <sync-option>"
