@@ -1,3 +1,5 @@
+Need to be updated to show latest PR changes.
+
 # synchronisation_scripts
 This repository is a home for our work on synchronisation script. The scripts should synchronise git repositories upon double click.
 This work was started at https://gin.g-node.org/gin4RRI/gin-scripts/, and then moved to GitHub (in order to get all work under the same team umbrella.)
