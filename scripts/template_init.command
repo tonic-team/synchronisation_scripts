@@ -70,8 +70,8 @@ else
     git add -A
     git commit -m "created from template"
     git branch -D main
-    git branch -m main
-    git push -f origin main
+    git branch -m master
+    git push -f origin master
     
     # add submodule to PI repo
     # get labreports repo and write new folder for the project
