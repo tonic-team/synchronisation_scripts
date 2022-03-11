@@ -2,30 +2,12 @@
 #
 # Upload changes from inside repository using GIN CLI
 # Works with submodules.
-# Assumes gin init was performed or the repository was downloaded via gin get
+# needs git config to be set and user should be logged in
+# needs submodules and main repo to be initialised (gin init)
 
-usage() {
-    echo "$0 <sync-option>"
-    echo
-    echo "<sync-option>     The sync option defines what to do with the content of large files."
-    echo "                  It should be one of the following values:"
-    echo "                     download - Download all large file content from the server"
-    echo "                     keep     - Keep all large file content but do not download missing large files"
-    echo "                     remove   - Do not download large files and remove existing local large file content"
-    exit 1
-}
 
-# Set the variable for synchronisation option, see above 
-syncopt="remove"
 
-# Set commit message
-echo "Optionally enter a commit message, and hit return: "  
-read commitmessage 
 
-if [[ "$commitmessage" == "" ]]; then
-        echo "using date as commit message"
-	commitmessage="commit on $(date +%Y-%m-%d)"    
-fi
 
 
 
@@ -62,11 +44,16 @@ checkerror() {
     fi
 }
 
-# Set folder where script will be executed 
-loc=$(dirname $0)
-projectdir=$(git -C ${loc} rev-parse --show-toplevel)
+# Set commit message
+echo "Optionally enter a commit message, and hit return: "  
+read commitmessage 
 
-pushd ${loc} > /dev/null
+if [[ "$commitmessage" == "" ]]; then
+        echo "using date as commit message"
+	commitmessage="commit on $(date +%Y-%m-%d)"    
+fi
+
+
 # write log
 mkdir -p ./.log
 echo "$(date +'%Y-%m-%dT%H:%M:%S'): Sync script executed" >> ./.log/gin.log

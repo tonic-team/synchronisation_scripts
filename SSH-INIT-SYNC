@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+#
+# Initialise or Upload changes from inside repository
+# using GIN CLI
+# Works with submodules and repo made by tonic v1 (not copying submodules content).
+# needs git config to be set 
+# needs SSH access to GIN
+# future dvt using datalad will allow use of non-GIN repositories
+
+# logic: template has a specific file to label it needs initialisation.
+# if this file is present, code 1 is done: template_initialisation
+# if it is absent but submodules are empty, code 2 is done: submodule_initialisation
+# if none of the above code 3 is done: synchronisation
+
+# Set folder where script will be executed 
+loc=$(dirname $0)
+projectdir=$(git -C ${loc} rev-parse --show-toplevel)
+
+pushd ${loc} > /dev/null
+
+## code 1
+if test -f "00repo_needs_initialisation00.txt" ;
+  then
+  echo "running project repository initiation (first run)"
+  sh scripts/template_init.command
+fi
+
+## code 2
+ 
+if  (test -f "03_data/001_data/README_data.md") ;
+  then
+  echo "submodules are initialised"
+  
+  else
+  echo "initialising submodules"
+  git submodule update --init --recursive
+  git submodule foreach gin init
+fi
+
+## code 3
+
+
+usage() {
+    echo "$0 <sync-option>"
+    echo
+    echo "<sync-option>     The sync option defines what to do with the content of large files."
+    echo "                  It should be one of the following values:"
+    echo "                     download - Download all large file content from the server"
+    echo "                     keep     - Keep all large file content but do not download missing large files"
+    echo "                     remove   - Do not download large files and remove existing local large file content"
+    exit 1
+}
+
+# Set the variable for synchronisation option, see above 
+syncopt="remove"
+
+echo "start synchronisation in "$syncopt" mode, close window to cancel. change mode by changing the code in a text application"
+sh scripts/GIN-SYNC
