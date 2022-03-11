@@ -12,8 +12,6 @@
 #pushd ${loc} > /dev/null
 
 # get info for gin remote information
-# go on main branch
-git checkout main
 
 GINinfo="$(gin remotes)"
 Gitadress="$(echo $GINinfo | cut -d'/' -f3)"
@@ -28,6 +26,10 @@ reposhort="$(echo "${repo/.main}")"
 readmetext="$Gitadress/$Orga/$repo is the parent directory"
 
 echo "readme will be $readmetext"
+
+echo "erase master branch and go to main if there is a main branch"
+git checkout main
+git branch -D master
 
 # initialise submodules
 git submodule update --init --recursive
@@ -70,9 +72,13 @@ else
     git add -A
     git commit -m "created from template"
     git branch -D main
-    git branch -m master
-    git push -f origin master
+    git branch -m main
+    git push -f origin main
     
+    git push origin --delete synced/main
+    gin init
+    gin upload .
+
     # add submodule to PI repo
     # get labreports repo and write new folder for the project
     cd ../

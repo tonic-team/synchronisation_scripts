@@ -29,12 +29,12 @@ fi
  
 if  (test -f "03_data/001_data/README_data.md") ;
   then
-  echo "submodules are initialised"
-  
-  else
+
   echo "initialising submodules"
   git submodule update --init --recursive
   git submodule foreach gin init
+  else
+  echo "submodules are initialised"
 fi
 
 ## code 3
