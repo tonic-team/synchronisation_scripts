@@ -22,7 +22,7 @@ pushd ${loc} > /dev/null
 if test -f "00repo_needs_initialisation00.txt" ;
   then
   echo "running project repository initiation (first run)"
-  sh scripts/template_init.command
+  sh .scripts/template_init.command
 fi
 
 ## code 2
@@ -55,4 +55,4 @@ usage() {
 syncopt="remove"
 
 echo "start synchronisation in "$syncopt" mode, close window to cancel. change mode by changing the code in a text application"
-sh scripts/GIN-SYNC
+sh .scripts/GIN-SYNC
