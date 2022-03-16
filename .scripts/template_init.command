@@ -55,7 +55,7 @@ else
     touch 06_dissemination/03_other/.gitkeep
     
     # add labcommons submodule
-    git submodule add "ssh://$Gitadress/$Orga/"labcommons"" testlabcommons
+    git submodule add "ssh://$Gitadress/$Orga/"labcommons"" 07_misc/labcommons
     
     # push submodule content
     git submodule foreach gin init
