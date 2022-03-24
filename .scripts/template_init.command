@@ -55,7 +55,7 @@ else
     touch 06_dissemination/03_other/.gitkeep
     
     # add labcommons submodule
-    git submodule add "ssh://$Gitadress/$Orga/"labcommons"" 07_misc/labcommons
+    git submodule add "../labcommons" 07_misc/labcommons
     
     # push submodule content
     git submodule foreach gin init
@@ -65,18 +65,8 @@ else
     # delete file telling the initialisation need to be done
     rm "00repo_needs_initialisation00.txt"
 
-    # arrange parent repository
-    gin commit .
-    
-    git checkout --orphan newbranch
-    git add -A
-    git commit -m "created from template"
-    git branch -D main
-    git branch -m main
-    git push -f origin main
-    
-    git push origin --delete synced/main
-    gin init
+    # arrange parent repository (no rewriting history for security issue)
+    gin commit . -m "initialisation"
     gin upload .
 
     # add submodule to PI repo
