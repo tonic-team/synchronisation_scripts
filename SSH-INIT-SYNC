@@ -18,6 +18,21 @@ projectdir=$(git -C ${loc} rev-parse --show-toplevel)
 
 pushd ${loc} > /dev/null
 
+## set gin server and remote
+if ! gin remotes; then
+  sh .script/setginserver
+else
+    echo gin remote set
+fi
+
+#login if needed
+if ! gin info; then
+  echo "set gin login"
+  gin login
+else
+    echo "gin logged"
+fi
+
 ## code 1
 if test -f "00repo_needs_initialisation00.txt" ;
   then
