@@ -24,6 +24,7 @@ reposhort="$(echo "${repo/.main}")"
 
 # readme text
 readmetext="$Gitadress/$Orga/$repo is the parent directory"
+gitign=".DS_Store"
 
 echo "readme will be $readmetext"
 
@@ -47,6 +48,13 @@ else
     echo "$readmetext" >> 05_figures/990_shared_figures/README_figures.md
     echo "$readmetext" >> 03_data/001_data/README_data.md
     echo "$readmetext" >> 06_dissemination/README_DISSEMINATION.md
+    
+    echo "$gitign" >> 03_data/001_data/.gitignore
+    echo "$gitign" >> 04_data_analysis/010_code/.gitignore
+    echo "$gitign" >> 05_figures/990_shared_figures/.gitignore
+    echo "$gitign" >> 03_data/001_data/.gitignore
+    echo "$gitign" >> 06_dissemination/.gitignore
+    
     mkdir 06_dissemination/01_reports_conferences
     mkdir 06_dissemination/02_manuscripts
     mkdir 06_dissemination/03_other
