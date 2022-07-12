@@ -1,6 +1,6 @@
-# set server
+# set server, use HU server
 if ! gin use-server hu; then
-  echo "set gin sewrver"
+  echo "set gin server"
   # set gin remote from git information (on the hu server)
   gin add-server --web https://gindata.biologie.hu-berlin.de:443 --git git@gindata.biologie.hu-berlin.de:10022 hu
 
