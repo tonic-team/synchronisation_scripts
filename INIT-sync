@@ -50,8 +50,8 @@ if grep -q 06_dissemination ".gitmodules";
 
     else
     echo "initialising submodules"
-    git submodule update --init --recursive
-    git submodule foreach gin init
+    gin git submodule update --init --recursive
+    gin git submodule foreach gin init
     fi
   else
   echo "not a tonic repo, please initialise submodules manually if there are any"

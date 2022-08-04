@@ -29,11 +29,11 @@ gitign=".DS_Store"
 echo "readme will be $readmetext"
 
 echo "erase master branch and go to main if there is a main branch"
-git checkout main
-git branch -D master
+gin git checkout main
+gin git branch -D master
 
 # initialise submodules
-git submodule update --init --recursive
+gin git submodule update --init --recursive
 
 # if the template was not initialise before, let's do it
 if test -f "03_data/001_data/README_data.md" ;
@@ -63,12 +63,12 @@ else
     touch 06_dissemination/03_other/.gitkeep
     
     # add labcommons submodule
-    git submodule add "../labcommons" 07_misc/labcommons
+    gin git submodule add "../labcommons" 07_misc/labcommons
     
     # push submodule content
-    git submodule foreach gin init
-    git submodule foreach gin commit . -m initial commit from template
-    git submodule foreach gin upload
+    gin git submodule foreach gin init
+    gin git submodule foreach gin commit . -m initial commit from template
+    gin git submodule foreach gin upload
     
     # delete file telling the initialisation need to be done
     rm "00repo_needs_initialisation00.txt"
@@ -88,8 +88,8 @@ else
     
     # add 2 submodule for figures and dissemination files there
     
-    git submodule add "../$reposhort.05_figures_990_shared_figures.git" ""$reposhort"/05_figures/990_shared_figures"
-    git submodule add "../$reposhort.06_dissemination" ""$reposhort"/06_dissemination"
+    gin git submodule add "../$reposhort.05_figures_990_shared_figures.git" ""$reposhort"/05_figures/990_shared_figures"
+    gin git submodule add "../$reposhort.06_dissemination" ""$reposhort"/06_dissemination"
     
     # add a file to tell the user/script to initialise the submodules next time.
     
