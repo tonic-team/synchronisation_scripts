@@ -43,16 +43,16 @@ else
     echo "setting up the template for the first time !"
     
     # add readme files, and folders
-    echo "$readmetext" >> 03_data/001_data/README_data.md
+    echo "$readmetext" >> 03_data/001_raw_data/README_dataraw.md
     echo "$readmetext" >> 04_data_analysis/010_code/README_analysiscode.md
     echo "$readmetext" >> 05_figures/990_shared_figures/README_figures.md
-    echo "$readmetext" >> 03_data/001_data/README_data.md
+    echo "$readmetext" >> 03_data/001_derived_data/README_dataderived.md
     echo "$readmetext" >> 06_dissemination/README_DISSEMINATION.md
     
-    echo "$gitign" >> 03_data/001_data/.gitignore
+    echo "$gitign" >> 03_data/001_raw_data/.gitignore
     echo "$gitign" >> 04_data_analysis/010_code/.gitignore
     echo "$gitign" >> 05_figures/990_shared_figures/.gitignore
-    echo "$gitign" >> 03_data/001_data/.gitignore
+    echo "$gitign" >> 03_data/001_derived_data/.gitignore
     echo "$gitign" >> 06_dissemination/.gitignore
     
     mkdir 06_dissemination/01_reports_conferences
