@@ -94,10 +94,12 @@ else
     # add a file to tell the user/script to initialise the submodules next time.
     
     echo "submodules need intitialisation due to project "$reposhort"." >> "initialise.txt"
+
     gin git add "initialise.txt"
    
     # push changes on the server and remove the repo from the computer.
     gin git commit  -m "added project $reposhort"
+
     gin upload
     cd ../
     rm -rf labreports
