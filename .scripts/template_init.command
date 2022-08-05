@@ -74,7 +74,7 @@ else
     rm "00repo_needs_initialisation00.txt"
 
     # arrange parent repository (no rewriting history for security issue)
-    gin commit . -m "initialisation"
+    gin git commit . -m "initialisation"
     gin upload .
 
     # add submodule to PI repo
@@ -93,10 +93,10 @@ else
     
     # add a file to tell the user/script to initialise the submodules next time.
     
-    echo "submodules need intitialisation due to project $repo " >> "initialise.txt"
+    echo "submodules need intitialisation due to project "$reposhort"." >> "initialise.txt"
     
     # push changes on the server and remove the repo from the computer.
-    gin commit . -m "added project $reposhort"
+    gin git commit . -m "added project $reposhort"
     gin upload
     cd ../
     rm -rf labreports

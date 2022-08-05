@@ -92,7 +92,11 @@ if [[ "${syncopt}" == "download" ]]; then
 
 echo "Synchronising main repository"
 
-gin git commit . -m "$commitmessage"
+# add content
+gin commit . -m "$commitmessage"
+# add submodule changes 
+gin git commit . --amend -m "$commitmessage"
+# upload files
 gin sync
 gin upload
 
