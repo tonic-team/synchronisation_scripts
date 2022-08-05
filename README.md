@@ -7,7 +7,7 @@ This work was started at https://gin.g-node.org/gin4RRI/gin-scripts/, and then m
 
 - Scripts for working with GIN server using the GIN client.
 - Both initialise and synchronise tonic-created repositories with submodules
-- `SSH-INIT-SYNC` is the master script calling scripts present in .script folder
+- `INIT-SYNC` is the master script calling scripts present in .script folder
 - The current scripts are made and tested for tonic-created repositories on the HU server. We are looking into making them work with usual gin repositories.
 
 See issues for future developments.
@@ -17,9 +17,9 @@ See issues for future developments.
 ## Installation
 
 - install gin-cli: see https://gin.g-node.org/G-Node/Info/wiki/GIN+CLI+Setup 
-- paste the `SSH-INIT-SYNC` file and the `.script` folder in the parent repository.
-- add `SSH-INIT-SYNC`  to `.gitignore` (so it is not update if the variable is changed) .
-- You may need to make the script an executable: open a terminal window in your repository folder (right-click -- New Terminal at folder) and run `chmod +x sync`. This needs only to be done once.
+- paste the `INIT-SYNC` file and the `.script` folder in the parent repository.
+- add `INIT-sync`  to `.gitignore` (so it is not update if the variable is changed) .
+- You may need to make the script an executable: open a terminal window in your repository folder (right-click -- New Terminal at folder) and run `chmod +x INIT-sync`. This needs only to be done once.
 - You may open in a text editor and modify the value of `syncopt` (l.76) if you want the script to dowload or erase all annexed files in/from your local copy.
 
 NB: windows users will need special installation, see [this file](./windows-workflow.md)
@@ -30,15 +30,13 @@ NB: windows users will need special installation, see [this file](./windows-work
 
 The script was only tested in macOS.
 
-[SSH-INIT-SYNC](./SSH-INIT-SYNC): Run from inside a repository to upload any local changes to GIN using the GIN CLI.
+[INIT-sync](./INIT-sync): Run from inside a repository to upload any local changes to GIN using the GIN-CLI.
 
 ## master script
 
 - Double clicking on the file in a file browser should run the script in a terminal. If the script succeeds, the terminal closes immediately.  If there is an error, it will print an error message and wait for the user to press [Enter] or close the window.
-- The script will call an repository initialisation script (tonic v.0.9 is not able to do it all), an submodule initialisation (first time the synchronisation is runned, the submodules need to be downloaded and set), and finally the synchronisation script.
-- Initialisation is based on git commands and need ssh access.
-
-NB: If you copy a folder that has been initialised on a different computer, you should not need ssh access (for example if you work with a external HD).
+- The script will call a repository initialisation script (tonic v.0.9 is not able to do it all), a submodule initialisation (first time the synchronisation is runned, the submodules need to be downloaded and set), and finally the synchronisation script.
+- Initialisation is based on `gin git` commands and do not need extra ssh access (gin provides it).
 
 
 ## synchronisation part
