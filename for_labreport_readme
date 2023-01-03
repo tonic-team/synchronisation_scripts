@@ -1,0 +1,60 @@
+# labreports
+
+This repositorybring acess to every tonic project in this lab.
+## Initialise
+after being loogedd in gin, use the gin get command.
+You can use theinit-sync script, or run:
+`gin git submodule update --init --recursive`
+
+This will bring the submodule content (not the large files)
+
+## Erase one project
+
+1. - Copy the name of the folder of the project
+and paste it in the ccommand below (this will give reposhort a value)
+`reposhort="PASTEFOLDERNAMEHERE"`
+
+1. - Check it worked:`echo "$reposhort"`
+ 
+1. - Run the code below:
+
+
+
+```
+
+gin git rm ""$reposhort"/05_figures/990_shared_figures"
+    gin git rm ""$reposhort"/06_dissemination"
+
+    rm -r "$reposhort"
+    rm -rf .git/modules/""$reposhort"/05_figures/990_shared_figures"
+    rm -rf .git/modules/""$reposhort"/06_dissemination"
+    
+    gin git commit -m "removed "$reposhort""
+    gin sync
+```    
+    
+## Add a project
+
+1.  Find name of the project on the web, take only the name before ".main"
+2.  Paste that name in `reposhort="PASTEFOLDERNAMEHERE"`, run the command
+3.  Test in works:`echo "$reposhort"`
+4.  Run:
+
+```
+mkdir "$reposhort"
+mkdir "$reposhort/05_figures"
+    
+    
+    # add 2 submodule for figures and dissemination files there
+    
+    gin git submodule add "../$reposhort.05_figures_990_shared_figures.git" ""$reposhort"/05_figures/990_shared_figures"
+    gin git submodule add "../$reposhort.06_dissemination" ""$reposhort"/06_dissemination"
+    
+    gin git commit  -m "added project $reposhort"
+    gin upload
+    
+  
+
+gin git submodule update --init --recursive
+```
+

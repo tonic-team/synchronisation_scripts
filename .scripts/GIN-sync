@@ -67,15 +67,15 @@ else
 fi
 
 echo "intialise submodules"
-git submodule foreach gin init
+gin git submodule foreach gin init
 
 echo "Synchronising submodules"
-git submodule foreach gin commit . -m "$commitmessage"
+gin git submodule foreach gin commit . -m "$commitmessage"
 checkerror $? "Error occurred during 'gin commit'"
-git submodule foreach gin sync
+gin git submodule foreach gin sync
 checkerror $? "Error occurred during 'gin sync'"
 
-git submodule foreach gin upload
+gin git submodule foreach gin upload
 checkerror $? "Error occurred during 'gin upload'"
 
 ## remove uploaded (annexed) content
@@ -92,7 +92,11 @@ if [[ "${syncopt}" == "download" ]]; then
 
 echo "Synchronising main repository"
 
+# add content
 gin commit . -m "$commitmessage"
+# add submodule changes 
+gin git commit . --amend -m "$commitmessage"
+# upload files
 gin sync
 gin upload
 

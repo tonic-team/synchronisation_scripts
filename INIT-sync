@@ -18,24 +18,45 @@ projectdir=$(git -C ${loc} rev-parse --show-toplevel)
 
 pushd ${loc} > /dev/null
 
+## set gin server and remote
+if ! gin remotes; then
+  sh .script/setginserver
+else
+    echo gin remote set
+fi
+
+#login if needed
+if ! gin info; then
+  echo "set gin login"
+  gin login
+else
+    echo "gin logged"
+fi
+
 ## code 1
 if test -f "00repo_needs_initialisation00.txt" ;
   then
   echo "running project repository initiation (first run)"
-  sh scripts/template_init.command
+  sh .scripts/template_init.command
 fi
 
 ## code 2
- 
-if  (test -f "03_data/001_data/README_data.md") ;
+
+if grep -q 06_dissemination ".gitmodules"; 
   then
-  echo "submodules are initialised"
-  
+  if  (test -f "06_dissemination/README_DISSEMINATION.md") ;
+    then
+    echo "submodules are initialised"
+
+    else
+    echo "initialising submodules"
+    gin git submodule update --init --recursive
+    gin git submodule foreach gin init
+    fi
   else
-  echo "initialising submodules"
-  git submodule update --init --recursive
-  git submodule foreach gin init
-fi
+  echo "not a tonic repo, please initialise submodules manually if there are any"
+fi 
+
 
 ## code 3
 
@@ -55,4 +76,4 @@ usage() {
 syncopt="remove"
 
 echo "start synchronisation in "$syncopt" mode, close window to cancel. change mode by changing the code in a text application"
-sh scripts/GIN-SYNC
+sh .scripts/GIN-SYNC
