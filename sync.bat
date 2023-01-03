@@ -4,4 +4,5 @@ set curdir=%~dp0
 
 C:\cygwin64\bin\bash -l %curdir%INIT-sync
 
+
 pause

@@ -1,3 +1,5 @@
+Need to be updated to show latest PR changes.
+
 # synchronisation_scripts
 
 This repository is a home for the tonic team work on synchronisation script. The scripts should synchronize git repositories upon double click.
