@@ -19,11 +19,9 @@ projectdir=$(git -C ${loc} rev-parse --show-toplevel)
 pushd ${loc} > /dev/null
 
 ## set gin server and remote
-if ! gin remotes; then
-  sh .scripts/setginserver
-else
-    echo gin remote set
-fi
+
+sh .scripts/setginserver
+
 
 #login if needed
 if ! gin info; then
