@@ -20,7 +20,7 @@ pushd ${loc} > /dev/null
 
 ## set gin server and remote
 if ! gin remotes; then
-  sh .script/setginserver
+  sh .scripts/setginserver
 else
     echo gin remote set
 fi
