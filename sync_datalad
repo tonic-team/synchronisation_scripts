@@ -1,0 +1,24 @@
+# Set folder where script will be executed 
+loc=$(dirname $0)
+projectdir=$(git -C ${loc} rev-parse --show-toplevel)
+
+pushd ${loc} > /dev/null
+
+
+# Set commit message
+echo "Optionally enter a commit message, and hit return: "  
+read commitmessage
+
+# initiate repo and submodules
+
+#datalad create -f -c text2git
+#datalad get -n -r
+#datalad foreach-dataset datalad create -f -c text2git
+
+
+
+# datalad sync
+
+datalad update -r --how=merge
+datalad save -r -m "$commitmessage"
+datalad push -r --to origin
