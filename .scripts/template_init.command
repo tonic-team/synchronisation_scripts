@@ -36,7 +36,8 @@ gin git branch -D master
 gin git submodule update --init --recursive
 
 # if the template was not initialise before, let's do it
-if test -f "03_data/001_data/README_data.md" ;
+# new tonic version do that, so this should be obsolete.
+if test -f "03_data/001_raw_data/README_dataraw.md" ;
 then
     echo "submodules in place, happy working!"
 else
@@ -70,13 +71,18 @@ else
     gin git submodule foreach gin commit . -m initial commit from template
     gin git submodule foreach gin upload
     
-    # delete file telling the initialisation need to be done
-    rm "00repo_needs_initialisation00.txt"
+
 
     # arrange parent repository (no rewriting history for security issue)
     gin git commit . -m "initialisation"
     gin upload .
+fi
 
+if test -f "00repo_needs_initialisation00.txt" ;
+
+    # delete file telling the initialisation need to be done
+    rm "00repo_needs_initialisation00.txt"
+    
     # add submodule to PI repo
     # get labreports repo and write new folder for the project
     cd ../
@@ -103,4 +109,6 @@ else
     gin upload
     cd ../
     rm -rf labreports
+    
+
 fi
