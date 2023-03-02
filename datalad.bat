@@ -1,12 +1,5 @@
 :: Upload changes from inside repository using GIN CLI
 
-:checkerror
-    err=%1
-    msg=%2
-    if %err% NEQ 0 (
-
-    )
-EXIT /B
 
 set curdir=%~dp0
 for /f %%i in ('git -C %curdir% rev-parse --show-toplevel') do set projectdir=%%i
