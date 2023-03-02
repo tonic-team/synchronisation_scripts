@@ -1,4 +1,4 @@
-:: Upload changes from inside repository using GIN CLI
+:: Upload changes from inside repository using datalad
 
 
 set curdir=%~dp0
