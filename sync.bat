@@ -2,7 +2,7 @@
 
 set curdir=%~dp0
 
-C:\cygwin64\bin\bash -l %curdir%INIT-sync
+python .scripts/datalad_sync.py
 
 
 pause
