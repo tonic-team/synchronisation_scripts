@@ -8,6 +8,7 @@ import datalad.api as dl
 loc = os.path.dirname(os.path.abspath(__file__))
 print(loc)
 os.chdir(loc)
+os.chdir('../')
 #projectdir = dl.Repo(loc, create=False).get_toppath()
 
 # initialise
