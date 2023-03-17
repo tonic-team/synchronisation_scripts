@@ -1,4 +1,4 @@
-from heapq import merge
+from datetime import datetime
 import os
 import sys
 
@@ -15,18 +15,25 @@ os.chdir('../')
 if not os.path.isfile("06_dissemination/README_DISSEMINATION.md"):
     print("running project repository initiation (first run)")
     dl.get(".", recursive=True, get_data=False)
-    dl.update(merge=True, recursive=True)
+    dl.update(how='merge', recursive=True)
+
+# Give info on changes
+print('results of datalad status call:')
+dl.status(recursive=True, eval_subdataset_state ='commit', result_renderer ='tailored')
 
 # Set commit message
 commitmessage = input("Optionally enter a commit message, and hit return: ")
 if not commitmessage:
     print("using date as commit message")
-    commitmessage = "commit on" + {datetime.now().strftime('%Y-%m-%d')}
+    commitmessage = print("commit on" , datetime.now())
 
 # sync
-dl.update(merge=True, recursive=True)
+print("update changes from server")
+dl.update(how='merge', recursive=True)
+print("saving changes")
 dl.save(".", message=commitmessage, recursive=True)
-dl.push(".", to="origin", recursive=True)
+print("pushing saved changes to server")
+dl.push(to="origin", recursive=True)
 
 # Set dropping option
 q_answer = input("Do you want to drop all files that were uploaded, they will be on the server but not on this computer anymore ? [y/n]")
