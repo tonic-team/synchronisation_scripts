@@ -48,15 +48,15 @@ On unix machines, the bash script should be made executable.
 
 -   Scripts for working with GIN server using the GIN client.
 -   Both initialise and synchronise tonic-created repositories with submodules
--   `GIN-sync-unix` is the master script calling scripts present in .script folder
+-   `Sync-GIN_unix` is the master script calling scripts present in .script folder
 -   The current scripts are made and tested for tonic-created repositories on the HU server.
 
 ## Installation
 
 -   install gin-cli: see <https://gin.g-node.org/G-Node/Info/wiki/GIN+CLI+Setup>
--   paste the `GIN-sync-unix` file and the `.script` folder in the parent repository.
--   add `GIN-sync-unix` to `.gitignore` (so it is not update if the variable is changed) .
--   You may need to make the script an executable: open a terminal window in your repository folder (right-click -- New Terminal at folder) and run `chmod +x GIN-sync-unix`. This needs only to be done once.
+-   paste the `Sync-GIN_unix` file and the `.script` folder in the parent repository.
+-   add `Sync-GIN_unix` to `.gitignore` (so it is not update if the variable is changed) .
+-   You may need to make the script an executable: open a terminal window in your repository folder (right-click -- New Terminal at folder) and run `chmod +x Sync-GIN_unix`. This needs only to be done once.
 -   You may open in a text editor and modify the value of `syncopt` (l.76) if you want the script to dowload or erase all annexed files in/from your local copy.
 
 NB: windows users will need special installation, see [this file](./GIN-cli/windows-workflow.md)
@@ -65,7 +65,7 @@ NB: windows users will need special installation, see [this file](./GIN-cli/wind
 
 The script was only tested in macOS.
 
-[GIN-sync-unix](./GIN-sync-unix): Run from inside a repository to upload any local changes to GIN using the GIN-CLI.
+[Sync-GIN_unix](./Sync-GIN_unix): Run from inside a repository to upload any local changes to GIN using the GIN-CLI.
 
 ## master script
 
