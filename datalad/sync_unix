@@ -1,0 +1,7 @@
+# Set folder where script will be executed 
+loc=$(dirname $0)
+projectdir=$(git -C ${loc} rev-parse --show-toplevel)
+
+pushd ${loc} > /dev/null
+
+python3 .scripts/datalad_sync.py

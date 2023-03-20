@@ -1,4 +1,14 @@
-# working with windows 
+!!! 
+
+For windows users, it is adviced to use datalad scripts.
+
+If you still want to use the gin-cli based bash scripts, here are some walkthrough.
+This will not be updated and may not work with your windows system.
+
+!!!
+
+
+# Working with windows and 
 
 >Tests made on a machine running Windows 8.1, 64 bits with slow internet connection. msys bash that was previously installed on that computer via an old gin-cli installation (unknown fact at start of tests :) ).
 

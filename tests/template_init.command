@@ -12,6 +12,8 @@
 #pushd ${loc} > /dev/null
 
 # get info for gin remote information
+# go on main branch
+git checkout main
 
 GINinfo="$(gin remotes)"
 Gitadress="$(echo $GINinfo | cut -d'/' -f3)"
@@ -24,16 +26,11 @@ reposhort="$(echo "${repo/.main}")"
 
 # readme text
 readmetext="$Gitadress/$Orga/$repo is the parent directory"
-gitign=".DS_Store"
 
 echo "readme will be $readmetext"
 
-echo "erase master branch and go to main if there is a main branch"
-gin git checkout main
-gin git branch -D master
-
 # initialise submodules
-gin git submodule update --init --recursive
+git submodule update --init --recursive
 
 # if the template was not initialise before, let's do it
 if test -f "03_data/001_data/README_data.md" ;
@@ -43,18 +40,11 @@ else
     echo "setting up the template for the first time !"
     
     # add readme files, and folders
-    echo "$readmetext" >> 03_data/001_raw_data/README_dataraw.md
+    echo "$readmetext" >> 03_data/001_data/README_data.md
     echo "$readmetext" >> 04_data_analysis/010_code/README_analysiscode.md
     echo "$readmetext" >> 05_figures/990_shared_figures/README_figures.md
-    echo "$readmetext" >> 03_data/001_derived_data/README_dataderived.md
+    echo "$readmetext" >> 03_data/001_data/README_data.md
     echo "$readmetext" >> 06_dissemination/README_DISSEMINATION.md
-    
-    echo "$gitign" >> 03_data/001_raw_data/.gitignore
-    echo "$gitign" >> 04_data_analysis/010_code/.gitignore
-    echo "$gitign" >> 05_figures/990_shared_figures/.gitignore
-    echo "$gitign" >> 03_data/001_derived_data/.gitignore
-    echo "$gitign" >> 06_dissemination/.gitignore
-    
     mkdir 06_dissemination/01_reports_conferences
     mkdir 06_dissemination/02_manuscripts
     mkdir 06_dissemination/03_other
@@ -63,20 +53,26 @@ else
     touch 06_dissemination/03_other/.gitkeep
     
     # add labcommons submodule
-    gin git submodule add "../labcommons" 07_misc/labcommons
+    git submodule add "ssh://$Gitadress/$Orga/"labcommons"" testlabcommons
     
     # push submodule content
-    gin git submodule foreach gin init
-    gin git submodule foreach gin commit . -m initial commit from template
-    gin git submodule foreach gin upload
+    git submodule foreach gin init
+    git submodule foreach gin commit . -m initial commit from template
+    git submodule foreach gin upload
     
     # delete file telling the initialisation need to be done
     rm "00repo_needs_initialisation00.txt"
 
-    # arrange parent repository (no rewriting history for security issue)
-    gin git commit . -m "initialisation"
-    gin upload .
-
+    # arrange parent repository
+    gin commit .
+    
+    git checkout --orphan newbranch
+    git add -A
+    git commit -m "created from template"
+    git branch -D main
+    git branch -m main
+    git push -f origin main
+    
     # add submodule to PI repo
     # get labreports repo and write new folder for the project
     cd ../
@@ -88,18 +84,15 @@ else
     
     # add 2 submodule for figures and dissemination files there
     
-    gin git submodule add "../$reposhort.05_figures_990_shared_figures.git" ""$reposhort"/05_figures/990_shared_figures"
-    gin git submodule add "../$reposhort.06_dissemination" ""$reposhort"/06_dissemination"
+    git submodule add "../$reposhort.05_figures_990_shared_figures.git" ""$reposhort"/05_figures/990_shared_figures"
+    git submodule add "../$reposhort.06_dissemination" ""$reposhort"/06_dissemination"
     
     # add a file to tell the user/script to initialise the submodules next time.
     
-    echo "submodules need intitialisation due to project "$reposhort"." >> "initialise.txt"
-
-    gin git add "initialise.txt"
-   
+    echo "submodules need intitialisation due to project $repo " >> "initialise.txt"
+    
     # push changes on the server and remove the repo from the computer.
-    gin git commit  -m "added project $reposhort"
-
+    gin commit . -m "added project $reposhort"
     gin upload
     cd ../
     rm -rf labreports

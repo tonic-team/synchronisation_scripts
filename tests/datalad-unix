@@ -1,0 +1,41 @@
+# Set folder where script will be executed 
+loc=$(dirname $0)
+projectdir=$(git -C ${loc} rev-parse --show-toplevel)
+
+pushd ${loc} > /dev/null
+
+# initialise
+if test -f "00repo_needs_initialisation00.txt" ;
+  then
+  echo "running project repository initiation (first run)"
+  datalad get . -n -r
+  datalad update -r --how=merge
+  rm "00repo_needs_initialisation00.txt"
+fi
+
+
+# Set commit message
+echo "Optionally enter a commit message, and hit return: "  
+read commitmessage 
+
+if [[ "$commitmessage" == "" ]]; then
+        echo "using date as commit message"
+	commitmessage="commit on $(date +%Y-%m-%d)"    
+fi
+
+#sync
+
+datalad update -r --how=merge
+datalad save -r -m  "$commitmessage"
+datalad push -r
+
+# Set dropping option
+echo "Do you want to drop all files that were uploaded, they will be on the server but not on this computer anymore ? [y/n]"  
+read q_answer 
+
+if "$q_answer" == "y"; 
+then
+datalad drop . -r
+fi
+
+pause
