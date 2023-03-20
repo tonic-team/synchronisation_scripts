@@ -4,6 +4,10 @@ This repository is a home for the tonic team work on synchronisation script.
 The scripts synchronize git repositories upon double click.
 While Unix users can choose between GIN-CLI and datalad based scripts, windows users should use datalad scripts.
 
+## Use
+
+Executable scripts should be in the main parent folder of the parent repository, the .scripts hidden folder should also be copied there. If you want to have both scripts available, you will need to combine the two .scritps folder.
+
 ## History
 
 This work was started at <https://gin.g-node.org/gin4RRI/gin-scripts/>, and then moved to GitHub (in order to get all work under the same team umbrella.) We first work on scripts using GIN-CLI, as the tonic template did not have submodules.
@@ -26,12 +30,12 @@ The datalad scripts contains one bash and one .bat script to be executed on UNIX
 ### Installation
 
 For the python scripts to work, python 3 and datalad should be installed.
-Please refer to the datalad handbook for the installation of both (datalad requires python3).
+Please refer to the [datalad handbook](http://handbook.datalad.org/en/latest/index.html#) for the installation of both (datalad requires python3).
 
 You should also first get the repository using `datalad get <ssh address of the repo>` (this will run in the command line on windows and the terminal on UNIX machines).
 For this to work, one needs to set a ssh connection.
 
-*The \`set a ssh connection\` step may be a bit complicated, please refer also to the datalad handbook.*
+*The \`set a ssh connection\` step may be a bit complicated, please refer also to the [datalad handbook](http://handbook.datalad.org/en/latest/index.html#).*
 
 On unix machines, the bash script should be made executable.
 
