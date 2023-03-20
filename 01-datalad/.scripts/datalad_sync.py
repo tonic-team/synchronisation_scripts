@@ -25,8 +25,7 @@ dl.status(recursive=True, eval_subdataset_state ='commit', result_renderer ='tai
 commitmessage = input("Optionally enter a commit message, and hit return: ")
 if not commitmessage:
     print("using date as commit message")
-    commitmessage = print("commit on" , datetime.now())
-
+    commitmessage = "commit on " + datetime.now().strftime("%B %d, %Y")
 # sync
 print("update changes from server")
 dl.update(how='merge', recursive=True)
