@@ -31,14 +31,13 @@ else
     echo "gin logged"
 fi
 
-## code 1
-if test -f "00repo_needs_initialisation00.txt" ;
+## code 1, add to labreports
+if test -f ".notinlabreport.txt" ;
   then
-  echo "running project repository initiation (first run)"
+  echo "Adding project to labreports repository."
   sh .scripts/template_init.command
 fi
-
-## code 2
+## code 2, initialising
 
 if grep -q 06_dissemination ".gitmodules"; 
   then

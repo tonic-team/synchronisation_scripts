@@ -27,6 +27,10 @@ The GIN_CLI scripts requires to install the GIN-cli tool, set the GIN server (se
 
 The datalad scripts contains one bash and one .bat script to be executed on UNIX or windows computer, both should work out of the box, as they are only calling a python script.
 
+The pyhton script ask for a commi message and then update the repository with the server version. 
+In a second step, its asks wether large files should be dropped from the hard disc (this is done only if the server version has been uploaded successfully).
+Getting dropped files should be done manually using `datalad get .` (to get is all).
+
 ### Installation
 
 For the python scripts to work, python 3 and datalad should be installed.
@@ -55,11 +59,11 @@ On unix machines, the bash script should be made executable.
 
 -   install gin-cli: see <https://gin.g-node.org/G-Node/Info/wiki/GIN+CLI+Setup>
 -   paste the `sync-gin-unix` file and the `.script` folder in the parent repository.
--   add `sync-gin-unix` to `.gitignore` (so it is not update if the variable is changed) .
 -   You may need to make the script an executable: open a terminal window in your repository folder (right-click -- New Terminal at folder) and run `chmod +x sync-gin-unix`. This needs only to be done once.
 -   You may open in a text editor and modify the value of `syncopt` (l.76) if you want the script to dowload or erase all annexed files in/from your local copy.
+- If you want a script specific for a single computer, copy paste the script, add a different name, and add that new file to .gitignore **before** using it to synchronise the repository.
 
-NB: windows users will need special installation, see [this file](./GIN-cli/windows-workflow.md)
+NB: windows users will need special installation, see [this file](./03_helpers-gincli/windows-workflow.md)
 
 ## Bash script for Linux and macOS
 
@@ -70,12 +74,12 @@ The script was only tested in macOS.
 ## master script
 
 -   Double clicking on the file in a file browser should run the script in a terminal. If the script succeeds, the terminal closes immediately. If there is an error, it will print an error message and wait for the user to press [Enter] or close the window.
--   The script will call a repository initialisation script (tonic v.0.9 is not able to do it all), a submodule initialisation (first time the synchronisation is runned, the submodules need to be downloaded and set), and finally the synchronisation script.
--   Initialisation is based on `gin git` commands and do not need extra ssh access (gin provides it).
+-   The script will call a repository initialisation script, a submodule initialisation (first time the synchronisation is runned, the submodules need to be downloaded and set), and finally the synchronisation script.
+-   Note: initialisation is based on `gin git` commands and do not need extra ssh access (gin provides it).
 
 ## synchronisation part
 
--   Assumes the repository is already initialized and you are logged in into gin (via `gin login` or via ssh).
+-   Assumes you are logged in into gin (via `gin login` or via ssh) and using the HU server.
 -   work with submodules.
 -   Synchronises changes made remotely (on the server) and locally (on the local machine).
 -   Does not download large files and do not delete large files content after upload by default. Change variable `syncopt="remove"` in line 19 to modify this behavior. Current option is download, keep and remove.
