@@ -1,32 +1,61 @@
-Need to be updated to show latest PR changes.
+# Tonic Synchronisation_scripts
 
-# synchronisation_scripts
+This repository is a home for the tonic team work on synchronisation script.
+The scripts synchronize git repositories upon double click.
+While Unix users can choose between GIN-CLI and datalad based scripts, windows users should use datalad scripts.
 
-This repository is a home for the tonic team work on synchronisation script. The scripts should synchronize git repositories upon double click.
-This work was started at https://gin.g-node.org/gin4RRI/gin-scripts/, and then moved to GitHub (in order to get all work under the same team umbrella.)
+## History
 
-## version 1.0
+This work was started at <https://gin.g-node.org/gin4RRI/gin-scripts/>, and then moved to GitHub (in order to get all work under the same team umbrella.) We first work on scripts using GIN-CLI, as the tonic template did not have submodules.
+We then moved to use datalad in scripts, as it is easier to make it work on windows machine, and make it probably easier to handle on the long run, as datalad is made to work with submodules (GIN-Cli is not).
 
-- Scripts for working with GIN server using the GIN client.
-- Both initialise and synchronise tonic-created repositories with submodules
-- `INIT-SYNC` is the master script calling scripts present in .script folder
-- The current scripts are made and tested for tonic-created repositories on the HU server. We are looking into making them work with usual gin repositories.
+## Repo organisation
 
-See issues for future developments.
+We put scripts based on datalad and those based on GIN-CLI is two different folders, while old code used at different time is in the `tests\` repository.
 
+# Requirement
 
+The datalad scripts require datalad to be installed, and a ssh conection between your computer and the online repository.
+It also needs python 3 to be installed (this is usually also a requirement for datalad).
+The GIN_CLI scripts requires to install the GIN-cli tool, set the GIN server (see initialisation scripts), and run bash scripts on your machine (difficulties in windows computers).
+
+# Datalad scripts
+
+The datalad scripts contains one bash and one .bat script to be executed on UNIX or windows computer, both should work out of the box, as they are only calling a python script.
+
+### Installation
+
+For the python scripts to work, python 3 and datalad should be installed.
+Please refer to the datalad handbook for the installation of both (datalad requires python3).
+
+You should also first get the repository using `datalad get <ssh address of the repo>` (this will run in the command line on windows and the terminal on UNIX machines).
+For this to work, one needs to set a ssh connection.
+
+*The \`set a ssh connection\` step may be a bit complicated, please refer also to the datalad handbook.*
+
+On unix machines, the bash script should be made executable.
+
+-    Open the terminal in the folder where the script is (right click the folder, alternatively, open a terminal, type `cd` and then drag and drop the folder in the terminal).
+-   run `chmod +x sync_unix`
+
+# GIN-CLI scripts
+
+## Overview
+
+-   Scripts for working with GIN server using the GIN client.
+-   Both initialise and synchronise tonic-created repositories with submodules
+-   `GIN-sync-unix` is the master script calling scripts present in .script folder
+-   The current scripts are made and tested for tonic-created repositories on the HU server.
 
 ## Installation
 
-- install gin-cli: see https://gin.g-node.org/G-Node/Info/wiki/GIN+CLI+Setup 
-- paste the `INIT-SYNC` file and the `.script` folder in the parent repository.
-- add `INIT-sync`  to `.gitignore` (so it is not update if the variable is changed) .
-- You may need to make the script an executable: open a terminal window in your repository folder (right-click -- New Terminal at folder) and run `chmod +x INIT-sync`. This needs only to be done once.
-- You may open in a text editor and modify the value of `syncopt` (l.76) if you want the script to dowload or erase all annexed files in/from your local copy.
+-   install gin-cli: see <https://gin.g-node.org/G-Node/Info/wiki/GIN+CLI+Setup>
+-   paste the `INIT-SYNC` file and the `.script` folder in the parent repository.
+-   add `INIT-sync` to `.gitignore` (so it is not update if the variable is changed) .
+-   You may need to make the script an executable: open a terminal window in your repository folder (right-click -- New Terminal at folder) and run `chmod +x INIT-sync`. This needs only to be done once.
+-   You may open in a text editor and modify the value of `syncopt` (l.76) if you want the script to dowload or erase all annexed files in/from your local copy.
 
-NB: windows users will need special installation, see [this file](./windows-workflow.md)
-
-
+NB: windows users will need special installation, see [this file](./GIN-cli/windows-workflow.md)
 
 ## Bash script for Linux and macOS
 
@@ -36,36 +65,35 @@ The script was only tested in macOS.
 
 ## master script
 
-- Double clicking on the file in a file browser should run the script in a terminal. If the script succeeds, the terminal closes immediately.  If there is an error, it will print an error message and wait for the user to press [Enter] or close the window.
-- The script will call a repository initialisation script (tonic v.0.9 is not able to do it all), a submodule initialisation (first time the synchronisation is runned, the submodules need to be downloaded and set), and finally the synchronisation script.
-- Initialisation is based on `gin git` commands and do not need extra ssh access (gin provides it).
-
+-   Double clicking on the file in a file browser should run the script in a terminal. If the script succeeds, the terminal closes immediately. If there is an error, it will print an error message and wait for the user to press [Enter] or close the window.
+-   The script will call a repository initialisation script (tonic v.0.9 is not able to do it all), a submodule initialisation (first time the synchronisation is runned, the submodules need to be downloaded and set), and finally the synchronisation script.
+-   Initialisation is based on `gin git` commands and do not need extra ssh access (gin provides it).
 
 ## synchronisation part
-- Assumes the repository is already initialized and you are logged in into gin (via `gin login` or via ssh).
-- work with submodules.
-- Synchronises changes made remotely (on the server) and locally (on the local machine).
-- Does not download large files and do not delete large files content after upload by default. Change variable `syncopt="remove"` in line 19 to modify this behavior. Current option is download, keep and remove.
-- ask for a "commit message"", the message will be used in the main repo, and in submodules commits. This is useful to track what has been changed when looking at the history.
 
+-   Assumes the repository is already initialized and you are logged in into gin (via `gin login` or via ssh).
+-   work with submodules.
+-   Synchronises changes made remotely (on the server) and locally (on the local machine).
+-   Does not download large files and do not delete large files content after upload by default. Change variable `syncopt="remove"` in line 19 to modify this behavior. Current option is download, keep and remove.
+-   ask for a "commit message"", the message will be used in the main repo, and in submodules commits. This is useful to track what has been changed when looking at the history.
 
+## On Windows
 
+One approach is to use .bat scripts to call the bash script.
+See [this file](./windows-workflow.md), but please condider using the datalad scripts instead.
 
-
-## Windows
-
-We are still looking for a way to use the bash script in windows. Another approach is to use .bat scripts to call the bash script. See [this file](./windows-workflow.md) 
-
-## other (older) scripts
+## other scripts
 
 ### Initiation scripts
 
-GIN scripts suppose that the user is using the main g-node GIN server. Scripts in this folder will set up connection to a different instance.
+GIN scripts suppose that the user is using the main g-node GIN server.
+Scripts in this folder will set up connection to a different instance.
 
-Note: when using several server, you can use `gin servers` to see a list and check that nothing went rogue. If you ever get the gin server changed, you can get if back with `gin add-server --web https://gin.g-node.org:443 --git git@gin.g-node.org:22 gin`
+Note: when using several server, you can use `gin servers` to see a list and check that nothing went rogue.
+If you ever get the gin server changed, you can get if back with `gin add-server --web https://gin.g-node.org:443 --git git@gin.g-node.org:22 gin`
 
 This should be working inside the main initialisation script now.
 
 # Contritubion
 
-Feel welcome to contribute to this project by giving us feedback via issues, or by changing the code directly via a Pull Request. 
+Feel welcome to contribute to this project by giving us feedback via issues, or by changing the code directly via a Pull Request.
