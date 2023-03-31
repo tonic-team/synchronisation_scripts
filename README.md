@@ -34,18 +34,28 @@ Getting dropped files should be done manually using `datalad get .` (to get is a
 ### Installation
 
 For the python scripts to work, python 3 and datalad should be installed.
-Please refer to the [datalad handbook](http://handbook.datalad.org/en/latest/index.html#) for the installation of both (datalad requires python3).
+Please refer to the [datalad handbook](http://handbook.datalad.org/en/latest/index.html#) for the installation of both (datalad requires python3), as well as ssh connections. 
 
-You should also first get the repository using `datalad get <ssh address of the repo>` (this will run in the command line on windows and the terminal on UNIX machines).
-For this to work, one needs to set a ssh connection.
+*The \`set a ssh connection\` step may be a bit complicated, please refer also to the [datalad handbook](http://handbook.datalad.org/en/latest/index.html#).* My advice is to use [Rstudio to set your ssh key](https://happygitwithr.com/ssh-keys.html), it is much faster than going through the command line interface.
 
-*The \`set a ssh connection\` step may be a bit complicated, please refer also to the [datalad handbook](http://handbook.datalad.org/en/latest/index.html#).*
+You should also first get the repository using `datalad clone <ssh address of the repo>` (this will run in the command line on windows and the terminal on UNIX machines).
+For this to work, one needs a working ssh connection.
+
+
 
 On unix machines, the bash script should be made executable.
 
 -    Open the terminal in the folder where the script is (right click the folder, alternatively, open a terminal, type `cd` and then drag and drop the folder in the terminal).
 -   run `chmod +x sync_unix`
 
+### Troubleshoot
+
+-OSX
+  - one needs to install datalad via homebrew **and** via pip3
+- Windows
+  - It may be tricky to install everything on Windows. Especially ssh keys do not work the same. If you can reinstall everything fresh when you encounter an issue with the installation.
+  
+  
 # GIN-CLI scripts
 
 ## Overview
