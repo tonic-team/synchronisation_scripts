@@ -19,7 +19,7 @@ if not os.path.isfile("06_dissemination/README_DISSEMINATION.md"):
 
 # Give info on changes
 print('results of datalad status call:')
-dl.status(recursive=True, eval_subdataset_state ='commit', result_renderer ='tailored')
+statuslist = dl.status(recursive=True, eval_subdataset_state ='commit', result_renderer ='tailored')
 
 # Set commit message
 commitmessage = input("Optionally enter a commit message, and hit return: ")
@@ -35,6 +35,22 @@ print("pushing saved changes to server")
 dl.push(to="origin", recursive=True)
 
 # Set dropping option
-q_answer = input("Do you want to drop all files that were uploaded, they will be on the server but not on this computer anymore ? [y/n]")
+print("list of files to drop")
+
+# get data from datalad status, where state was not clean, and print each element in one row:
+for v in statuslist:
+  if v['state']!="clean": 
+    statuslist3 += [v['path']]
+
+for v in statuslist3:
+  print(v)
+
+
+q_answer = input("Do you want to erase (from this computer) all the big files that were uploaded just now, they will be on the server, you can downlaod them with `datalad get <path-to-file>` ? [y/n]")
+if q_answer == "y":
+  for v in statuslist3:
+    dl.drop(print(v), recursive=True)
+
+q_answer = input("Do you want to drop all big files, they will be on the server but not on this computer anymore ? [y/n]")
 if q_answer == "y":
     dl.drop(".", recursive=True)
