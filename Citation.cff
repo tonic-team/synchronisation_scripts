@@ -1,5 +1,7 @@
 cff-version: 1.2.0
-message: "If you use this software, please cite it as below."
+title: Tonic synchronisation scripts
+message: 'If you use this software, please cite it as below.'
+type: software
 authors:
   - given-names: Julien
     family-names: Colomb
@@ -7,9 +9,22 @@ authors:
   - given-names: Achilleas
     family-names: Koutsou
     orcid: 'https://orcid.org/0000-0002-5726-3034'
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.8249574
+repository-code: 'https://github.com/tonic-team/synchronisation_scripts'
+url: 'https://gin-tonic.netlify.app'
+abstract: >-
+  The tonic scripts synchronize git repositories upon double
+  click. While Unix users can choose between GIN-CLI and
+  datalad based scripts, windows users should use datalad
+  scripts.
 
-title: "Tonic synchronisation scripts"
-version: 0.0.10
-date-released: 2023-08-15
-doi: 10.5281/zenodo.8249574
-url: "https://github.com/tonic-team/synchronisation_scripts"
+  The core code is in python while bash and batch script are
+  calling the python script.
+keywords:
+  - Git
+  - datalad
+license: MIT
+version: 0.0.11
+date-released: '2023-08-15'
