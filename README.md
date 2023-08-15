@@ -23,6 +23,9 @@ The datalad scripts require datalad to be installed, and a ssh conection between
 It also needs python 3 to be installed (this is usually also a requirement for datalad).
 The GIN_CLI scripts requires to install the GIN-cli tool, set the GIN server (see initialisation scripts), and run bash scripts on your machine (difficulties in windows computers).
 
+Note that the scripts are meant to be used with a special tonic repository created following https://gin-tonic.netlify.app/installation/template_repository/, especially we used the `git annex config --set annex.addunlocked true` option such that annexed files are not locked: it takes more space, but allows windows users to work on annexed files.
+
+
 # Datalad scripts
 
 The datalad scripts contains one bash and one .bat script to be executed on UNIX or windows computer, both should work out of the box, as they are only calling a python script.
