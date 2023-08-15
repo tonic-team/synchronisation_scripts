@@ -3,6 +3,7 @@
 This repository is a home for the tonic team work on synchronisation script.
 The scripts synchronize git repositories upon double click.
 While Unix users can choose between GIN-CLI and datalad based scripts, windows users should use datalad scripts.
+Some more information can be read at https://gin-tonic.netlify.app/tooling/synchronisationscripts/
 
 ## Use
 
@@ -54,7 +55,7 @@ On unix machines, the bash script should be made executable.
 ### Troubleshoot
 
 -OSX
-  - one needs to install datalad via homebrew **and** via pip3
+  - one needs to install datalad via homebrew **and** via pip3 (otherwise the python datalad API is not installed: `brew install datalad`, `pip3 install datalad`)
 - Windows
   - It may be tricky to install everything on Windows. Especially ssh keys do not work the same. If you can reinstall everything fresh when you encounter an issue with the installation.
   
