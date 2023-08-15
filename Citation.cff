@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - given-names: Julien
+    family-names: Colomb
+    orcid: 'https://orcid.org/0000-0002-3127-5520'
+  - given-names: Achilleas
+    family-names: Koutsou
+    orcid: 'https://orcid.org/0000-0002-5726-3034'
+
+title: "Tonic synchronisation scripts"
+version: 0.9.1
+date-released: 2023-08-15
+url: "https://github.com/tonic-team/synchronisation_scripts"
