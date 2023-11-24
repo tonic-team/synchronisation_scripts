@@ -27,17 +27,20 @@ if not commitmessage:
     print("using date as commit message")
     commitmessage = "commit on " + datetime.now().strftime("%B %d, %Y")
 # sync
-print("update changes from server")
-dl.update(how='merge', recursive=True)
 print("saving changes")
 dl.save(".", message=commitmessage, recursive=True)
+
+print("update changes from server")
+dl.update(how='merge', recursive=True)
+
 print("pushing saved changes to server")
 dl.push(to="origin", recursive=True)
 
 # Set dropping option
-print("list of files to drop")
+print("list of files to drop:")
 
 # get data from datalad status, where state was not clean, and print each element in one row:
+statuslist3 = []
 for v in statuslist:
   if v['state']!="clean": 
     statuslist3 += [v['path']]
