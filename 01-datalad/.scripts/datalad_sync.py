@@ -37,7 +37,7 @@ print("pushing saved changes to server")
 dl.push(to="origin", recursive=True)
 
 # Set dropping option
-print("list of files to drop:")
+print("list of files uploaded (both in git and git-annex):")
 
 # get data from datalad status, where state was not clean, and print each element in one row:
 statuslist3 = []
@@ -51,6 +51,7 @@ for v in statuslist3:
 
 q_answer = input("Do you want to erase (from this computer) all the big files that were uploaded just now, they will be on the server, you can downlaod them with `datalad get <path-to-file>` ? [y/n]")
 if q_answer == "y":
+  print("The code tries also to drop files that cannot be dropped and this may gives a warning message.")
   for v in statuslist3:
     dl.drop(print(v), recursive=True)
 
