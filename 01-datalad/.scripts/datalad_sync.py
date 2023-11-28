@@ -21,14 +21,24 @@ if not os.path.isfile("06_dissemination/README_DISSEMINATION.md"):
 print('results of datalad status call:')
 statuslist = dl.status(recursive=True, eval_subdataset_state ='commit', result_renderer ='tailored')
 
-# Set commit message
-commitmessage = input("Optionally enter a commit message, and hit return: ")
-if not commitmessage:
+# get data from datalad status, where state was not clean, and print each element in one row:
+statuslist3 = []
+for v in statuslist:
+  if v['state']!="clean": 
+    statuslist3 += [v['path']]
+
+
+if len(statuslist3) > 0:
+  # Set commit message
+  commitmessage = input("Optionally enter a commit message, and hit return: ")
+  if not commitmessage:
     print("using date as commit message")
     commitmessage = "commit on " + datetime.now().strftime("%B %d, %Y")
-# sync
-print("saving changes")
-dl.save(".", message=commitmessage, recursive=True)
+  # sync
+  print("saving changes")
+  dl.save(".", message=commitmessage, recursive=True)
+  
+
 
 print("update changes from server")
 dl.update(how='merge', recursive=True)
@@ -38,12 +48,6 @@ dl.push(to="origin", recursive=True)
 
 # Set dropping option
 print("list of files uploaded (both in git and git-annex):")
-
-# get data from datalad status, where state was not clean, and print each element in one row:
-statuslist3 = []
-for v in statuslist:
-  if v['state']!="clean": 
-    statuslist3 += [v['path']]
 
 for v in statuslist3:
   print(v)
